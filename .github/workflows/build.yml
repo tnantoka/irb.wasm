@@ -33,37 +33,37 @@ jobs:
           name: irb.wasm
           path: static/irb.wasm
 
-  build-page:
-    runs-on: ubuntu-22.04
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-      - uses: actions/download-artifact@v2
-        with:
-          name: irb.wasm
-          path: static
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-      - name: Bundle web resources
-        run: |
-          npm install
-          npx parcel build src/index.html
-      - uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist
+  # build-page:
+  #   runs-on: ubuntu-22.04
+  #   needs: [build]
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: true
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: irb.wasm
+  #         path: static
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "16"
+  #     - name: Bundle web resources
+  #       run: |
+  #         npm install
+  #         npx parcel build src/index.html
+  #     - uses: actions/upload-artifact@v2
+  #       with:
+  #         name: dist
+  #         path: dist
 
-      - run: cp ./vercel.json ./dist
-      - uses: amondnet/vercel-action@v25
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: ./dist
+  #     - run: cp ./vercel.json ./dist
+  #     - uses: amondnet/vercel-action@v25
+  #       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #       with:
+  #         vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  #         vercel-args: '--prod'
+  #         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  #         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  #         working-directory: ./dist
 
