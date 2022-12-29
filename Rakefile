@@ -24,7 +24,7 @@ BUILD_DIR = File.join(Dir.pwd, "build")
 
 options = {
   target: "wasm32-unknown-wasi",
-  src: { name: "head", type: "github", repo: "ruby/ruby", rev: "master", patches: [] },
+  src: { name: "head", type: "github", repo: "ruby/ruby", rev: "817193104dad2eb3f7b9593e2164cc88b3a54887", patches: [] },
   default_exts: FULL_EXTS,
   build_dir: BUILD_DIR,
 }
